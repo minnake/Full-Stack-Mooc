@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Phonebook from './components/Phonebook'
 
+/* - Estä lisäämästä jo olemassa olevaa nimeä puhelinluetteloon
+- Hakukenttä
+- Refaktoroi eriyttämällä komponentit (filtteröintilomake, uuden henkilön lisäävä lomake ja kaikki
+  henkilöt renderöivä komponentti) */
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
