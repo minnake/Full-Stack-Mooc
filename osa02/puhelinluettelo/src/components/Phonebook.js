@@ -3,15 +3,16 @@ import React from 'react'
 const Phonebook = ({ persons }) => {
     // console.log(persons.map(item => item))
     return (
-        <div>
-            {persons.map(({ id, content, number }) => {
+        <tbody>
+            {persons.map(({ id, name, number }) => {
                 return (
-                    <p key={id}>
-                        {content} {number}
-                    </p>
+                    <tr key={id}>
+                        <td>{name}</td>
+                        <td>{number}</td>
+                    </tr>
                 )
             })}
-        </div>
+        </tbody>
     )
 }
 
