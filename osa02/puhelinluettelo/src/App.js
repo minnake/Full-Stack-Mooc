@@ -13,15 +13,15 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
 
   useEffect(() => {
-    console.log('effect')
+    // console.log('effect')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
-        console.log('promise fulfilled')
+        //console.log('promise fulfilled')
         setPersons(response.data)
       })
   }, [])
-  console.log('render', persons.length, 'persons')
+  // console.log('render', persons.length, 'persons')
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -64,8 +64,11 @@ const App = () => {
       </div>
       <div>
         <h2>Search</h2>
-        <p><input/></p>
-        <p><button>Search</button></p>
+        <p>
+          <input />
+        </p>
+        <p>
+        </p>
       </div>
       <div>
         <h2>Numbers</h2>
