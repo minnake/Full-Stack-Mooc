@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Phonebook from './components/Phonebook'
+import personService from './services/phonebook'
 
-/* - Estä lisäämästä jo olemassa olevaa nimeä puhelinluetteloon
-- Hakukenttä
+/* 
+- Estä lisäämästä jo olemassa olevaa nimeä puhelinluetteloon+lisää mahdollisuus korvata
+vanha puhelinnumero uudella.
+- Hakukenttä.
 - Refaktoroi eriyttämällä komponentit (filtteröintilomake, uuden henkilön lisäävä lomake ja kaikki
-  henkilöt renderöivä komponentti) */
+  henkilöt renderöivä komponentti) .
+- Delete-nappula jokaisen nimen jälkeen.
+- ilmoitus, kun henkilö lisätään ja poistetaan sekä numeron muutos.
+*/
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -13,15 +18,12 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
 
   useEffect(() => {
-    // console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        //console.log('promise fulfilled')
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
-  // console.log('render', persons.length, 'persons')
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -31,10 +33,14 @@ const App = () => {
       number: newNumber,
       date: new Date().toISOString(),
     }
-    setPersons(persons.concat(personObject))
-    setNewName('')
-  }
 
+    personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+      })
+  }
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
   }

@@ -9,6 +9,7 @@ const Phonebook = ({ persons }) => {
                     <tr key={id}>
                         <td>{name}</td>
                         <td>{number}</td>
+                        <td><button>Delete</button></td>
                     </tr>
                 )
             })}
