@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Phonebook = ({ persons }) => {
+const Phonebook = ({ filteredPersons }) => {
     // console.log(persons.map(item => item))
     return (
         <tbody>
-            {persons.map(({ id, name, number }) => {
+            {filteredPersons.map(({ id, name, number }) => {
                 return (
                     <tr key={id}>
                         <td>{name}</td>

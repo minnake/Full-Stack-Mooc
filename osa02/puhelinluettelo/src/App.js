@@ -5,7 +5,6 @@ import personService from './services/phonebook'
 /* 
 - Estä lisäämästä jo olemassa olevaa nimeä puhelinluetteloon+lisää mahdollisuus korvata
 vanha puhelinnumero uudella.
-- Hakukenttä.
 - Refaktoroi eriyttämällä komponentit (filtteröintilomake, uuden henkilön lisäävä lomake ja kaikki
   henkilöt renderöivä komponentti) .
 - Delete-nappula jokaisen nimen jälkeen.
@@ -16,6 +15,8 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [search, setSearch] = useState("");
+  const [filteredPersons, setFilteredPersons] = useState([]);
 
   useEffect(() => {
     personService
@@ -23,7 +24,12 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       })
-  }, [])
+    setFilteredPersons(
+      persons.filter((person) =>
+        person.name.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, persons]);
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -41,6 +47,7 @@ const App = () => {
         setNewName('')
       })
   }
+
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
   }
@@ -70,16 +77,18 @@ const App = () => {
       </div>
       <div>
         <h2>Search</h2>
-        <p>
-          <input />
-        </p>
-        <p>
-        </p>
+        <div>
+          <input
+            type="text"
+            placeholder="Search name"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
       <div>
         <h2>Numbers</h2>
         <table>
-          <Phonebook persons={persons} />
+          <Phonebook filteredPersons={filteredPersons} />
         </table>
       </div>
     </div>
