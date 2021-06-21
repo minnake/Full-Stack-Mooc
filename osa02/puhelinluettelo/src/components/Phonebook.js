@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Phonebook = ({ filteredPersons }) => {
-    // console.log(persons.map(item => item))
+    // console.log(filteredPersons.map(item => item))
     return (
         <tbody>
             {filteredPersons.map(({ id, name, number }) => {

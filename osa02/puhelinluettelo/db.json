@@ -1,33 +1,33 @@
 {
   "persons": [
     {
+      "id": "Arto Hellas",
       "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "Arto Hellas"
+      "number": "040-123456"
     },
     {
+      "id": "Ada Lovelace",
       "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": "Ada Lovelace"
+      "number": "39-44-5323523"
     },
     {
+      "id": "Dan Abramov",
       "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": "Dan Abramov"
+      "number": "12-43-234345"
     },
     {
+      "id": "Mary Poppendieck",
       "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": "Mary Poppendieck"
+      "number": "39-23-6423122"
     },
     {
-      "name": "Jukka Kettunen",
       "id": "Jukka Kettunen",
+      "name": "Jukka Kettunen",
       "number": "044 951 2275"
     },
     {
-      "name": "Kaisa Karhu",
       "id": "Kaisa Karhu",
+      "name": "Kaisa Karhu",
       "number": "055 862 4452"
     }
   ]
