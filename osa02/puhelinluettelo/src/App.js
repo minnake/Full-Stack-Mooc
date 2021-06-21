@@ -23,7 +23,7 @@ const App = () => {
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
-      })
+      });
     setFilteredPersons(
       persons.filter((person) =>
         person.name.toLowerCase().includes(search.toLowerCase())
@@ -39,7 +39,6 @@ const App = () => {
       number: newNumber,
       date: new Date().toISOString(),
     }
-
     personService
       .create(personObject)
       .then(returnedPerson => {
@@ -55,6 +54,7 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
+
 
   return (
     <div>
@@ -76,14 +76,13 @@ const App = () => {
         </form>
       </div>
       <div>
-        <h2>Search</h2>
-        <div>
-          <input
+        <p>
+          filter shown with <input
             type="text"
-            placeholder="Search name"
+            placeholder="name"
             onChange={(e) => setSearch(e.target.value)}
           />
-        </div>
+        </p>
       </div>
       <div>
         <h2>Numbers</h2>
