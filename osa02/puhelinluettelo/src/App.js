@@ -34,10 +34,9 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      name: newName,
       id: newName,
+      name: newName,
       number: newNumber,
-      date: new Date().toISOString(),
     }
     personService
       .create(personObject)
@@ -53,6 +52,10 @@ const App = () => {
 
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
+  }
+
+  const filterInput = (event) => {
+    setSearch(event.target.value)
   }
 
 
@@ -80,7 +83,7 @@ const App = () => {
           filter shown with <input
             type="text"
             placeholder="name"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={filterInput}
           />
         </p>
       </div>
