@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Phonebook = ({ filteredPersons }) => {
+const Phonebook = ({ filteredPersons, handleDelete }) => {
     // console.log(filteredPersons.map(item => item))
     return (
         <tbody>
@@ -9,7 +9,7 @@ const Phonebook = ({ filteredPersons }) => {
                     <tr key={id}>
                         <td>{name}</td>
                         <td>{number}</td>
-                        <td><button>Delete</button></td>
+                        <td><button onClick={() => handleDelete(id)}>Delete</button></td>
                     </tr>
                 )
             })}

@@ -3,7 +3,7 @@
     {
       "id": "Arto Hellas",
       "name": "Arto Hellas",
-      "number": "040-123456"
+      "number": "040-123 456"
     },
     {
       "id": "Ada Lovelace",
@@ -21,14 +21,14 @@
       "number": "39-23-6423122"
     },
     {
-      "id": "Jukka Kettunen",
-      "name": "Jukka Kettunen",
-      "number": "044 951 2275"
-    },
-    {
       "id": "Kaisa Karhu",
       "name": "Kaisa Karhu",
-      "number": "055 862 4452"
+      "number": "044 985 6420"
+    },
+    {
+      "id": "Jukka Kettunen",
+      "name": "Jukka Kettunen",
+      "number": "4444444444"
     }
   ]
 }

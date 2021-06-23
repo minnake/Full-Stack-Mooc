@@ -2,28 +2,20 @@ import React, { useState, useEffect } from 'react'
 import Phonebook from './components/Phonebook'
 import personService from './services/phonebook'
 
-/* 
-- Estä lisäämästä jo olemassa olevaa nimeä puhelinluetteloon+lisää mahdollisuus korvata
-vanha puhelinnumero uudella.
-- Refaktoroi eriyttämällä komponentit (filtteröintilomake, uuden henkilön lisäävä lomake ja kaikki
-  henkilöt renderöivä komponentti) .
-- Delete-nappula jokaisen nimen jälkeen.
-- ilmoitus, kun henkilö lisätään ja poistetaan sekä numeron muutos.
-*/
-
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState("");
   const [filteredPersons, setFilteredPersons] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     personService
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
-      });
+      }).catch(error => setError(error));
     setFilteredPersons(
       persons.filter((person) =>
         person.name.toLowerCase().includes(search.toLowerCase())
@@ -38,12 +30,23 @@ const App = () => {
       name: newName,
       number: newNumber,
     }
-    personService
-      .create(personObject)
-      .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))
-        setNewName('')
-      })
+
+    filteredPersons.forEach(person => {
+      if (person.id === newName) {
+        window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)
+        personService
+          .update({ id: newName, newObject: personObject })
+          .then(updated => {
+            console.log(updated)
+          })
+      }
+      personService
+        .create(personObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+        })
+    })
   }
 
   const handlePersonChange = (event) => {
@@ -58,12 +61,24 @@ const App = () => {
     setSearch(event.target.value)
   }
 
+  const handleDelete = (id) => {
+    // console.log(id)
+    if (window.confirm(`Delete ${id} from phonebook?`)) {
+      personService
+      .deletePerson(id)
+      .then(removed => {
+        console.log(removed);
+        console.log(removed.data);
+      })
+    }
+  }
 
   return (
     <div>
       <div>
+        {error && <p>{error}</p>}
         <h2>Phonebook</h2>
-        <form onSubmit={addPerson}>
+        <form>
           <p>
             name: <input
               value={newName}
@@ -74,7 +89,7 @@ const App = () => {
             onChange={handleNumberChange} />
           </p>
           <p>
-            <button type="submit">add</button>
+            <button type="submit" onClick={addPerson}>add</button>
           </p>
         </form>
       </div>
@@ -90,7 +105,7 @@ const App = () => {
       <div>
         <h2>Numbers</h2>
         <table>
-          <Phonebook filteredPersons={filteredPersons} />
+          <Phonebook filteredPersons={filteredPersons} handleDelete={handleDelete} />
         </table>
       </div>
     </div>
