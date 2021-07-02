@@ -16,6 +16,9 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       }).catch(error => setError(error));
+  }, []);
+
+  useEffect(() => {
     setFilteredPersons(
       persons.filter((person) =>
         person.name.toLowerCase().includes(search.toLowerCase())
@@ -37,15 +40,22 @@ const App = () => {
         personService
           .update({ id: newName, newObject: personObject })
           .then(updated => {
-            console.log(updated)
+            setPersons(persons.concat(updated))
+            setNewName('')
+            setNewNumber('')
           })
       }
-      personService
-        .create(personObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-          setNewName('')
-        })
+      if (newName !== -1) {
+        personService
+          .create(personObject)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+      } else {
+        console.log('Not updated')
+      }
     })
   }
 
@@ -65,11 +75,12 @@ const App = () => {
     // console.log(id)
     if (window.confirm(`Delete ${id} from phonebook?`)) {
       personService
-      .deletePerson(id)
-      .then(removed => {
-        console.log(removed);
-        console.log(removed.data);
-      })
+        .deletePerson(id)
+        .then(response => {
+          console.log(response);
+          console.log("This data was deleted: " + response.data);
+
+        })
     }
   }
 

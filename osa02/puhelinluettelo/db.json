@@ -1,19 +1,14 @@
 {
   "persons": [
     {
-      "id": "Arto Hellas",
-      "name": "Arto Hellas",
-      "number": "040-123 456"
-    },
-    {
       "id": "Ada Lovelace",
       "name": "Ada Lovelace",
-      "number": "39-44-5323523"
+      "number": "39-44-532 3523"
     },
     {
       "id": "Dan Abramov",
       "name": "Dan Abramov",
-      "number": "12-43-234345"
+      "number": "12-43-234 345"
     },
     {
       "id": "Mary Poppendieck",
@@ -21,14 +16,24 @@
       "number": "39-23-6423122"
     },
     {
-      "id": "Kaisa Karhu",
-      "name": "Kaisa Karhu",
-      "number": "044 985 6420"
+      "id": "Arto Hellas",
+      "name": "Arto Hellas",
+      "number": "044-123 456"
     },
     {
-      "id": "Jukka Kettunen",
-      "name": "Jukka Kettunen",
-      "number": "4444444444"
+      "id": "Katja Kunnari",
+      "name": "Katja Kunnari",
+      "number": "050 0258 96325"
+    },
+    {
+      "id": "Krista Niemi",
+      "name": "Krista Niemi",
+      "number": "044 563 3258"
+    },
+    {
+      "id": "Juhani Mäki",
+      "name": "Juhani Mäki",
+      "number": "044 563 3668"
     }
   ]
 }
