@@ -37,13 +37,13 @@ const App = () => {
     filteredPersons.forEach(person => {
       if (person.id === newName) {
         window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)
-        personService
+        /* personService
           .update({ id: newName, newObject: personObject })
           .then(updated => {
             setPersons(persons.concat(updated))
             setNewName('')
             setNewNumber('')
-          })
+          }) */
       }
       if (newName !== -1) {
         personService
@@ -53,9 +53,7 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
-      } else {
-        console.log('Not updated')
-      }
+      } 
     })
   }
 
@@ -79,7 +77,6 @@ const App = () => {
         .then(response => {
           console.log(response);
           console.log("This data was deleted: " + response.data);
-
         })
     }
   }
