@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import Phonebook from './components/Phonebook'
+import Notification from './services/Notification'
 import personService from './services/phonebook'
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState("");
-  const [filteredPersons, setFilteredPersons] = useState([]);
   const [error, setError] = useState(null);
-
+ 
   useEffect(() => {
     personService
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
       }).catch(error => setError(error));
-  }, []);
-
-  useEffect(() => {
-    setFilteredPersons(
-      persons.filter((person) =>
-        person.name.toLowerCase().includes(search.toLowerCase())
-      )
-    );
   }, [search, persons]);
 
   const addPerson = (event) => {
@@ -34,27 +27,32 @@ const App = () => {
       number: newNumber,
     }
 
-    filteredPersons.forEach(person => {
-      if (person.id === newName) {
-        window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)
-        /* personService
-          .update({ id: newName, newObject: personObject })
-          .then(updated => {
-            setPersons(persons.concat(updated))
-            setNewName('')
-            setNewNumber('')
-          }) */
-      }
-      if (newName !== -1) {
-        personService
-          .create(personObject)
-          .then(returnedPerson => {
-            setPersons(persons.concat(returnedPerson))
-            setNewName('')
-            setNewNumber('')
-          })
-      } 
-    })
+    const personToUpdate = persons.find(({ name }) => newName === name)
+
+    if (personToUpdate) {
+      window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)
+      personService
+        .update({ id: newName, newObject: personObject })
+        .then(() => {
+          setNewName('')
+          setNewNumber('')
+        })
+        .catch(error => {
+          setError(
+            `Person '${newName}' was not added to phonebook`
+          )
+          setTimeout(() => {
+            setError(null)
+          }, 5000)
+        })
+    } else {
+      personService
+        .create(personObject)
+        .then(() => {
+          setNewName('')
+          setNewNumber('')
+        })
+    }
   }
 
   const handlePersonChange = (event) => {
@@ -76,16 +74,28 @@ const App = () => {
         .deletePerson(id)
         .then(response => {
           console.log(response);
-          console.log("This data was deleted: " + response.data);
         })
-    }
+        .catch(error => {
+          setError(
+            `Person '${id}' was already removed from server`
+          )
+          setTimeout(() => {
+            setError(null)
+          }, 5000)
+        })
+    } 
   }
+
+  const filteredPersons = persons.filter((person) =>
+    person.name.toLowerCase().includes(search.toLowerCase())
+  )
 
   return (
     <div>
       <div>
         {error && <p>{error}</p>}
         <h2>Phonebook</h2>
+        <Notification error={error} />
         <form>
           <p>
             name: <input
